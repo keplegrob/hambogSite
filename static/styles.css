@@ -1,13 +1,17 @@
 body {
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     margin: 0;
 }
 
+
 .boglogo {
     max-width: 100%;
     height: auto;
+}
+
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
