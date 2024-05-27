@@ -36,7 +36,6 @@ def vpt():
     # Retrieve the timestamp from the session
     func_last_run = session.get('func_last_run', 'N/A')
     return render_template('vptwatcher.html', func_last_run=func_last_run)
-    return render_template('vptwatcher.html')
 
 @app.route("/run_gargatron", methods=['POST'])
 def run_gargatron():
@@ -119,7 +118,7 @@ def gargatron():
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
-        service = ChromeService(executable_path=CHROMEDRIVER_PATH)
+        service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriverls')
         driver = webdriver.Chrome(service=service, options=options)
         ## END REMOTE SETTINGS
 
