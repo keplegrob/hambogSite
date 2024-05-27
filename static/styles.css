@@ -15,3 +15,37 @@ body {
     align-items: center;
     height: 100vh;
 }
+
+.vptlogo {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 0px 5px #0089d8);
+    font-size: clamp(70px,-.4255319149vw + 28.170212766px,24px);
+    font-weight: 600;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    font-family: "Radiance","Noto Sans",sans-serif;
+}
+
+#gargatron-output {
+    color: white !important;
+}
+
+.vptlogotwo {
+  font-family: "Radiance","Noto Sans",sans-serif;
+  color: rgb(84, 95, 93);
+  filter: drop-shadow(rgb(0, 0, 0) 1.1764705181121826px 1.1764705181121826px 2.3529410362243652px) drop-shadow(rgb(97, 111, 117) 0px 0px 9.411764144897461px);
+  drop-shadow(1px 1px 2px #000000) drop-shadow(0px 0px 10px #FF9ADA).nemestice_H…dline_3guQS 60.css: 12:15631 font-family: Reaver, serif;
+  font-size: 36px;
+  font-weight: 600;
+  height: 64.70587921142578px;
+  letter-spacing: 2px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  max-width: 1200px;
+  text-transform: uppercase;
+  width: 532.2058715820312px;
+  padding-top: 30px;
+}
