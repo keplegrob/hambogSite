@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
+import pytz
 
 
 from bs4 import BeautifulSoup
@@ -30,10 +31,13 @@ app.secret_key = os.getenv('FLASKKEY')
 def generate_lastrun_timestamp():
     # Get the current datetime
     current_datetime = datetime.now()
+    # Convert the current datetime to Seattle timezone
+    seattle_tz = pytz.timezone('America/Los_Angeles')
+    current_datetime = current_datetime.astimezone(seattle_tz)
     # Format the datetime into the desired format
-    formatted_datetime = current_datetime.strftime("%B %d %Y, %I:%M %p")
+    formatted_datetime = current_datetime.strftime("%B %d %Y, %-I:%M %p")
     # Create the report string
-    report = f"This report was last generated {formatted_datetime}"
+    report = f"Last generated {formatted_datetime}"
 
     return report
 
