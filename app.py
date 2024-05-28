@@ -140,22 +140,22 @@ def gargatron():
 
     def go_trainer_full():
         # LOCAL TESTING SETTINGS
-        #driver = webdriver.Chrome()
+        driver = webdriver.Chrome()
         # END LOCAL TESTING SETTINGS
+        #
 
 
-
-
-        ## REMOTE (HEROKU) SETTINGS
-        options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--disable-dev-shm-usage")
-        service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriver')
-        #options.binary_location = os.environ.get("/app/.chrome-for-testing/chrome-linux64/chrome")
-        driver = webdriver.Chrome(service=service, options=options)
-        ## END REMOTE SETTINGS
+        #
+        # ## REMOTE (HEROKU) SETTINGS
+        # options = webdriver.ChromeOptions()
+        # options.add_argument("--headless")
+        # options.add_argument("--no-sandbox")
+        # options.add_argument("--disable-gpu")
+        # options.add_argument("--disable-dev-shm-usage")
+        # service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriver')
+        # #options.binary_location = os.environ.get("/app/.chrome-for-testing/chrome-linux64/chrome")
+        # driver = webdriver.Chrome(service=service, options=options)
+        # ## END REMOTE SETTINGS
 
 
 
@@ -403,11 +403,11 @@ def gargatron():
             html_strings.append(
                 f"<tr><td colspan='1'><h4 style='margin-top:25px; margin-right:0; margin-bottom:0; margin-left:0;'>{dt.strftime('%A')}</h4></td>"
                 
-                f"<td colspan='1'><h4 style='margin-top:15px; margin-right:0; margin-bottom:0; margin-left:0;'></h4></td>"
-                f"<td colspan='1'><h5 style='margin-top:15px; margin-right:0; margin-bottom:0; margin-left:0;'>{dt.strftime('%B %d')}</h5></td>"
+                f"<td colspan='1'><h4 style='margin-top:5px; margin-right:0; margin-bottom:0; margin-left:0;'></h4></td>"
+                f"<td colspan='1'><h5 style='margin-top:20px; margin-right:0; margin-bottom:0; margin-left:0;'>{dt.strftime('%B %d')}</h5></td>"
                 f"</tr>")
 
-            html_strings.append("<tr><td colspan='3'><hr style='border-top: 2px solid white;'></td></tr>")
+            html_strings.append("<tr><td colspan='3'><hr style='border-top: 2px solid white; margin-top: 0; margin-bottom: 0;'></td></tr>")
         html_strings.append(
             f"<tr><td style='padding-right:15px;'>{name}</td> <td style='padding-left:10px; text-align: right'>{time_str}</td> <td style='padding-left:15px;'><a href='{url}'>Book it!</a></td></tr>")
 

@@ -18,16 +18,39 @@ $(document).ready(function() {
         $("#gargatron-output").html(data.html_body);
     });
 
+<!--    $("#run-gargatron").click(function() {-->
+<!--        $("#loading-indicator").show();-->
+<!--        $.post("/run_gargatron", function(data) {-->
+<!--            $("#gargatron-output").html(data.html_body);-->
+<!--            $("#loading-indicator").hide();-->
+<!--            location.reload();  // This line reloads the page-->
+<!--        });-->
+<!--    });-->
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
     $("#run-gargatron").click(function() {
-        $("#loading-indicator").show();
+        $(this).hide();  // Hide the button
+        $("#loading-indicator").show();  // Show the loading indicator
+
         $.post("/run_gargatron", function(data) {
-            $("#gargatron-output").html(data.html_body);
-            $("#loading-indicator").hide();
-            location.reload();  // This line reloads the page
+            $("#loading-indicator").hide();  // Hide the loading indicator
+            location.reload();  // Reload the page
         });
     });
 });
 </script>
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -42,15 +65,35 @@ $(document).ready(function() {
 <p style="color: #808080; margin-left: 25px"><em>{{ timestamp }}</em></p>
 
 
-<p><button id="run-gargatron" class="btn btn-secondary" style="margin-left: 20px; margin-top: 10px">Refresh Schedule</button>
+
+<p></p><button id="run-gargatron" class="btn btn-secondary" style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px">Refresh Schedule</button>
+<div id="loading-indicator" style="display: none; margin-left: 10px">Refreshing, please wait
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+</div>
+
+
+
+
+
+
+<!--<p><button id="run-gargatron" class="btn btn-secondary" style="margin-left: 20px; margin-top: 10px">Refresh Schedule</button>-->
 <div id="gargatron-output"></div></p>
 
 
-<div id="loading-indicator" style="display: none;">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
+
+
+
+
+
+
+
+<!--<div id="loading-indicator" style="display: none;">-->
+<!--    <div class="spinner-border text-primary" role="status">-->
+<!--        <span class="sr-only">Loading...</span>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 </body>
