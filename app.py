@@ -139,23 +139,23 @@ def gargatron():
 
 
     def go_trainer_full():
-        # LOCAL TESTING SETTINGS
-        driver = webdriver.Chrome()
-        # END LOCAL TESTING SETTINGS
-        #
+        # # LOCAL TESTING SETTINGS
+        # driver = webdriver.Chrome()
+        # # END LOCAL TESTING SETTINGS
+        # #
 
 
-        #
-        # ## REMOTE (HEROKU) SETTINGS
-        # options = webdriver.ChromeOptions()
-        # options.add_argument("--headless")
-        # options.add_argument("--no-sandbox")
-        # options.add_argument("--disable-gpu")
-        # options.add_argument("--disable-dev-shm-usage")
-        # service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriver')
-        # #options.binary_location = os.environ.get("/app/.chrome-for-testing/chrome-linux64/chrome")
-        # driver = webdriver.Chrome(service=service, options=options)
-        # ## END REMOTE SETTINGS
+
+        ## REMOTE (HEROKU) SETTINGS
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-dev-shm-usage")
+        service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriver')
+        #options.binary_location = os.environ.get("/app/.chrome-for-testing/chrome-linux64/chrome")
+        driver = webdriver.Chrome(service=service, options=options)
+        ## END REMOTE SETTINGS
 
 
 
