@@ -27,6 +27,31 @@ from flask import jsonify
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASKKEY')
 
+def generate_lastrun_timestamp():
+    # Get the current datetime
+    current_datetime = datetime.now()
+    # Format the datetime into the desired format
+    formatted_datetime = current_datetime.strftime("%B %d %Y, %I:%M %p")
+    # Create the report string
+    report = f"This report was last generated {formatted_datetime}"
+
+    return report
+
+
+
+def get_timestamp():
+    try:
+        with open('timestamp.txt', 'r') as f:
+            return f.read().strip()
+    except FileNotFoundError:
+        return 'N/A'
+
+
+def store_timestamp():
+    ts_now = generate_lastrun_timestamp()
+    with open('timestamp.txt', 'w') as f:
+        f.write(ts_now)
+
 @app.route("/")
 def home():
     return render_template('index.html')
@@ -34,19 +59,21 @@ def home():
 @app.route("/vptwatcher.html")
 def vpt():
     # Retrieve the timestamp from the session
-    func_last_run = session.get('func_last_run', 'N/A')
-    return render_template('vptwatcher.html', func_last_run=func_last_run)
+    timestamp = get_timestamp()
+    #func_last_run = session.get('func_last_run', 'N/A')
+    return render_template('vptwatcher.html', timestamp=timestamp)
 
 @app.route("/run_gargatron", methods=['POST'])
 def run_gargatron():
     now = datetime.now()
-    func_last_run = now.strftime("%m/%d/%Y, %-I:%M %p")
     html_body = gargatron()
+    store_timestamp()
+    timestamp = get_timestamp()
     with open('gargatron_output.html', 'w') as f:
         f.write(html_body)
-    session['func_last_run'] = func_last_run
+    #session['func_last_run'] = func_last_run
 
-    return jsonify({'html_body': html_body, 'func_last_run': func_last_run})
+    return jsonify({'html_body': html_body, 'timestamp': timestamp})
 
 @app.route("/get_gargatron_output")
 def get_gargatron_output():
@@ -106,10 +133,11 @@ def gargatron():
         return encoded_iso_format_str
 
 
+
     def go_trainer_full():
-        ## LOCAL TESTING SETTINGS
+        # LOCAL TESTING SETTINGS
         #driver = webdriver.Chrome()
-        ## END LOCAL TESTING SETTINGS
+        # END LOCAL TESTING SETTINGS
 
 
 

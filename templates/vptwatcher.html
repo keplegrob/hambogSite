@@ -12,18 +12,7 @@
       <!-- My own CSS -->
     <link href="../static/styles.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!--<script>-->
-<!--$(document).ready(function() {-->
-<!--    $("#run-gargatron").click(function() {-->
-<!--        $("#loading-indicator").show();-->
-<!--        $.post("/run_gargatron", function(data) {-->
-<!--            $("#gargatron-output").html(data.html_body);-->
-<!--            $("#loading-indicator").hide();-->
-<!--        });-->
-<!--    });-->
-<!--});-->
-<!--</script>-->
-    <script>
+<script>
 $(document).ready(function() {
     $.get("/get_gargatron_output", function(data) {
         $("#gargatron-output").html(data.html_body);
@@ -34,28 +23,11 @@ $(document).ready(function() {
         $.post("/run_gargatron", function(data) {
             $("#gargatron-output").html(data.html_body);
             $("#loading-indicator").hide();
+            location.reload();  // This line reloads the page
         });
     });
 });
 </script>
-    <script>
-        $(document).ready(function() {
-    $("#run-gargatron").click(function() {
-        $("#loading-indicator").show();
-        $.post("/run_gargatron", function(data) {
-            $("#gargatron-output").html(data.html_body);
-            $("#loading-indicator").hide();
-
-            // Get current date and time
-            var now = new Date();
-            // Format date and time as a string
-            var timestamp = now.toLocaleString();
-            // Display timestamp
-            $("p > em").text("These results were last generated " + timestamp);
-        });
-    });
-});
-    </script>
 </head>
 
 
@@ -67,7 +39,7 @@ $(document).ready(function() {
     margin-bottom: 20px;">
 <p><h1 class="vptlogotwo" style="margin-bottom: 20px;">VPT WATCHER</h1></p>
 
-<p style="color: #808080; margin-left: 25px  "><em>These results were last generated {{func_last_run}}.</em> </p>
+<p style="color: #808080; margin-left: 25px"><em>{{ timestamp }}</em></p>
 
 
 <p><button id="run-gargatron" class="btn btn-secondary" style="margin-left: 20px; margin-top: 10px">Refresh Schedule</button>
