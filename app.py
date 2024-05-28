@@ -20,7 +20,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import jsonify
-from flask_talisman import Talisman
 
 
 #todo maybe later for organizaiton move static and templates
@@ -28,7 +27,7 @@ from flask_talisman import Talisman
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASKKEY')
-Talisman(app)
+
 
 
 def generate_lastrun_timestamp():
