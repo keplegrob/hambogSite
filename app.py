@@ -141,23 +141,23 @@ def gargatron():
 
 
     def go_trainer_full():
-        # # LOCAL TESTING SETTINGS
-        # driver = webdriver.Chrome()
-        # # END LOCAL TESTING SETTINGS
-        # #
+        # LOCAL TESTING SETTINGS
+        driver = webdriver.Chrome()
+        # END LOCAL TESTING SETTINGS
+        #
 
 
 
-        ## REMOTE (HEROKU) SETTINGS
-        options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--disable-dev-shm-usage")
-        service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriver')
-        #options.binary_location = os.environ.get("/app/.chrome-for-testing/chrome-linux64/chrome")
-        driver = webdriver.Chrome(service=service, options=options)
-        ## END REMOTE SETTINGS
+        # ## REMOTE (HEROKU) SETTINGS
+        # options = webdriver.ChromeOptions()
+        # options.add_argument("--headless")
+        # options.add_argument("--no-sandbox")
+        # options.add_argument("--disable-gpu")
+        # options.add_argument("--disable-dev-shm-usage")
+        # service = ChromeService(executable_path='/app/.chrome-for-testing/chromedriver-linux64/chromedriver')
+        # #options.binary_location = os.environ.get("/app/.chrome-for-testing/chrome-linux64/chrome")
+        # driver = webdriver.Chrome(service=service, options=options)
+        # ## END REMOTE SETTINGS
 
 
 
@@ -168,19 +168,21 @@ def gargatron():
         # Landing Page
         driver.get('https://vpt.as.me/schedule/92930363/appointment/3470658')
 
+        #Todo: This element class name changed and broke the app.
+        # for future versions, how to detect this automatically?
 
         # Wait until the page loads and trainers are visible
         WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-1ud922y')))
+            EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-15p1u57')))
 
         # Get all links to each trainer's schedule by their CSS class element
-        trainers = driver.find_elements(By.CLASS_NAME, 'css-1ud922y')
+        trainers = driver.find_elements(By.CLASS_NAME, 'css-15p1u57')
 
 
         # Loop through each trainer's schedule
         for i in range(len(trainers)):
 
-            trainers = driver.find_elements(By.CLASS_NAME, 'css-1ud922y')
+            trainers = driver.find_elements(By.CLASS_NAME, 'css-15p1u57')
 
             # This if i == 0 is to skip the first link/schedule, which is a master schedule and not a trainer
             if i == 0:
@@ -300,9 +302,9 @@ def gargatron():
 
             # We end up back at the main page, so we need to get the trainers each loop, incase the page has changed
             WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-1ud922y')))
+                EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-15p1u57')))
 
-            trainers = driver.find_elements(By.CLASS_NAME, 'css-1ud922y')
+            trainers = driver.find_elements(By.CLASS_NAME, 'css-15p1u57')
 
         return all_slots
 
