@@ -116,7 +116,7 @@ async def date_retrieval(trainer_id):
     return dates_list
 
 
-schedule_dump = []
+
 
 
 async def trainer_schedule_retrieval(trainer_id, trainer_name):
@@ -169,8 +169,9 @@ async def main():
     for trainer_id, trainer_name in trainers:
         await trainer_schedule_retrieval(trainer_id, trainer_name)
 
-
+schedule_dump = []
 def refresh_schedule():
+    schedule_dump.clear()
     asyncio.run(main())
 
     def get_date_time(entry):
