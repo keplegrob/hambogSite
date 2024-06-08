@@ -166,8 +166,8 @@ def get_trainer_id(trainer_name):
 
 
 async def main():
-    for trainer_id, trainer_name in trainers:
-        await trainer_schedule_retrieval(trainer_id, trainer_name)
+    tasks = [trainer_schedule_retrieval(trainer_id, trainer_name) for trainer_id, trainer_name in trainers]
+    await asyncio.gather(*tasks)
 
 schedule_dump = []
 def refresh_schedule():
