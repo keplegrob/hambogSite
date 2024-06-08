@@ -63,6 +63,8 @@ def home():
 @app.route("/vptwatcher.html")
 @app.route("/vptwatcher")
 def vpt():
+    # Run at page load now that it is fast
+    run_gargatron()
     # Retrieve the timestamp from the session
     timestamp = get_timestamp()
     # func_last_run = session.get('func_last_run', 'N/A')
