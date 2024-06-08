@@ -21,19 +21,19 @@
     </script>
 
 
-    <script>
-        $(document).ready(function() {
-            $("#run-gargatron").click(function() {
-                $(this).hide();  // Hide the button
-                $("#loading-indicator").show();  // Show the loading indicator
+<!--    <script>-->
+<!--        $(document).ready(function() {-->
+<!--            $("#run-gargatron").click(function() {-->
+<!--                $(this).hide();  // Hide the button-->
+<!--                $("#loading-indicator").show();  // Show the loading indicator-->
 
-                $.post("/run_gargatron", function(data) {
-                    $("#loading-indicator").hide();  // Hide the loading indicator
-                    location.reload();  // Reload the page
-                });
-            });
-        });
-    </script>
+<!--                $.post("/run_gargatron", function(data) {-->
+<!--                    $("#loading-indicator").hide();  // Hide the loading indicator-->
+<!--                    location.reload();  // Reload the page-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
 
 
 </head>
@@ -52,14 +52,14 @@
 
 
 <p></p>
-<button id="run-gargatron" class="btn btn-secondary" style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px">
-    Refresh Schedule
-</button>
-<div id="loading-indicator" style="display: none; margin-left: 10px">Refreshing, please wait
-    <span class="dot">.</span>
-    <span class="dot">.</span>
-    <span class="dot">.</span>
-</div>
+<!--<button id="run-gargatron" class="btn btn-secondary" style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px">-->
+<!--    Refresh Schedule-->
+<!--</button>-->
+<!--<div id="loading-indicator" style="display: none; margin-left: 10px">Refreshing, please wait-->
+<!--    <span class="dot">.</span>-->
+<!--    <span class="dot">.</span>-->
+<!--    <span class="dot">.</span>-->
+<!--</div>-->
 
 <div id="gargatron-output"></div>
 </p>

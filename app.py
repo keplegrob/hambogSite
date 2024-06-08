@@ -9,6 +9,37 @@ import asyncio
 import pytz
 from flask import jsonify
 
+trainers = [
+    (2407589, "Robert Wood"),
+    (10042681, "Cody Novak"),
+    (3012992, "Luke Besel"),
+    (2609505, "Lisa Dimak"),
+    (1294836, "Tyler Smith"),
+    (1294851, "Kevin Anderson"),
+    (1294854, "Kelli Wood"),
+    (8405080, "April Kimmel"),
+    (8405079, "Abbey Smith"),
+    (9335645, "Zach Smith"),
+    (1457187, "Josh Evans"),
+    (1294839, "Lori Barber"),
+    (7566793, "Josh Bond"),
+    (1294860, "JJ Murphy"),
+    (7566850, "Jared Klingenberg"),
+    (1294848, "Darren Carrido"),
+    (3008542, "Chris Warner"),
+    (1294866, "Brittney Thornton"),
+    (8059562, "Aaron Potoshnik"),
+    (10178755, "Matt Pirie"),
+    (9223905, "Serena Tedesco")
+]
+
+# Todo
+# 1. Better commenting on code
+# 2. Better background blending to black bg
+# 3. Cool logo?
+# 4. Filter by trainer? Maybe icon selectable next to trainer name?
+# 5. Test what happens when you are logged in to vpt and book an appointment
+
 load_dotenv()
 
 username = os.getenv('AC_USERNAME')
@@ -33,7 +64,7 @@ def generate_lastrun_timestamp():
     seattle_tz = pytz.timezone('America/Los_Angeles')
     current_datetime = current_datetime.astimezone(seattle_tz)
     # Format the datetime into the desired format
-    formatted_datetime = current_datetime.strftime("%B %d %Y, %-I:%M %p")
+    formatted_datetime = current_datetime.strftime("%B %-d %Y, %-I:%M %p")
     # Create the report string
     report = f"Last generated {formatted_datetime}"
 
@@ -118,9 +149,6 @@ async def date_retrieval(trainer_id):
     return dates_list
 
 
-
-
-
 async def trainer_schedule_retrieval(trainer_id, trainer_name):
     dates_list = await date_retrieval(trainer_id)
     async with aiohttp.ClientSession(auth=aiohttp.BasicAuth(username, api_key)) as session:
@@ -135,33 +163,11 @@ async def trainer_schedule_retrieval(trainer_id, trainer_name):
                 schedule_dump.append(x)
 
 
-trainers = [
-    (2407589, "Robert Wood"),
-    (10042681, "Cody Novak"),
-    (3012992, "Luke Besel"),
-    (2609505, "Lisa Dimak"),
-    (1294836, "Tyler Smith"),
-    (1294851, "Kevin Anderson"),
-    (1294854, "Kelli Wood"),
-    (8405080, "April Kimmel"),
-    (8405079, "Abbey Smith"),
-    (9335645, "Zach Smith"),
-    (1457187, "Josh Evans"),
-    (1294839, "Lori Barber"),
-    (7566793, "Josh Bond"),
-    (1294860, "JJ Murphy"),
-    (7566850, "Jared Klingenberg"),
-    (1294848, "Darren Carrido"),
-    (3008542, "Chris Warner"),
-    (1294866, "Brittney Thornton"),
-    (8059562, "Aaron Potoshnik"),
-    (10178755, "Matt Pirie"),
-    (9223905, "Serena Tedesco")
-]
-
 ### this bit is to look up trainer ID for URL construction
 # Convert the list of tuples to a dictionary
 trainers_dict = {name: trainer_id for trainer_id, name in trainers}
+
+
 # Function to get trainer ID from the dictionary
 def get_trainer_id(trainer_name):
     return trainers_dict.get(trainer_name)
@@ -171,7 +177,10 @@ async def main():
     tasks = [trainer_schedule_retrieval(trainer_id, trainer_name) for trainer_id, trainer_name in trainers]
     await asyncio.gather(*tasks)
 
+
 schedule_dump = []
+
+
 def refresh_schedule():
     schedule_dump.clear()
     asyncio.run(main())
@@ -181,8 +190,6 @@ def refresh_schedule():
         return dt.date(), dt.time()
 
     sorted_schedule = sorted(schedule_dump, key=get_date_time)
-
-    # Iterate through the sorted list
 
     # Initialize an empty list to store the HTML strings
     html_strings = []
@@ -215,6 +222,3 @@ def refresh_schedule():
     html_body = '\n'.join(html_strings)
     print("Completed without error.")
     return html_body
-
-### Comment out to run locally without Flask app is debugging/developing
-# refresh_schedule()
