@@ -9,6 +9,7 @@ import asyncio
 import pytz
 from flask import jsonify
 
+### Trainers must be added/removed here by ID and name
 trainers = [
     (2407589, "Robert Wood"),
     (10042681, "Cody Novak"),
@@ -34,11 +35,11 @@ trainers = [
 ]
 
 # Todo
-# 1. Better commenting on code
-# 2. Better background blending to black bg
-# 3. Cool logo?
-# 4. Filter by trainer? Maybe icon selectable next to trainer name?
-# 5. Test what happens when you are logged in to vpt and book an appointment
+#  Better background blending to black bg
+#  Cool logo?
+#  Filter by trainer? Maybe icon selectable next to trainer name?
+#  Test what happens when you are logged in to vpt and book an appointment
+#  Switch to rendering contents with Jinja2 instead of read/write to file?
 
 load_dotenv()
 
@@ -98,7 +99,6 @@ def vpt():
     run_gargatron()
     # Retrieve the timestamp from the session
     timestamp = get_timestamp()
-    # func_last_run = session.get('func_last_run', 'N/A')
     return render_template('vptwatcher.html', timestamp=timestamp)
 
 
@@ -121,11 +121,13 @@ def get_gargatron_output():
 
 ### END of Flask routing section ABOVE
 
+# Async function to do API data retrieval
 async def fetch(session, url):
     async with session.get(url) as response:
         return await response.json()
 
-
+# This function retrieves the dates of availability for all trainers
+# for the current month, *and* the next month
 async def date_retrieval(trainer_id):
     dates_list = []
     # Get the current date
@@ -148,7 +150,8 @@ async def date_retrieval(trainer_id):
                 dates_list.append(date["date"])
     return dates_list
 
-
+# Using the dates retrieval function, this function API calls each trainer's
+# availability for each date and lists out the time slots available
 async def trainer_schedule_retrieval(trainer_id, trainer_name):
     dates_list = await date_retrieval(trainer_id)
     async with aiohttp.ClientSession(auth=aiohttp.BasicAuth(username, api_key)) as session:
@@ -172,16 +175,17 @@ trainers_dict = {name: trainer_id for trainer_id, name in trainers}
 def get_trainer_id(trainer_name):
     return trainers_dict.get(trainer_name)
 
-
+# This is the main function which iterates through all trainers in trainers list
 async def main():
     tasks = [trainer_schedule_retrieval(trainer_id, trainer_name) for trainer_id, trainer_name in trainers]
     await asyncio.gather(*tasks)
 
-
+# Create the list for the schedule
 schedule_dump = []
 
 
 def refresh_schedule():
+    # Clear the schedule list on page load/refresh
     schedule_dump.clear()
     asyncio.run(main())
 
